@@ -1,0 +1,11 @@
+{
+  "name": "prockill",
+  "version": "0.0.1-alpha",
+  "description": "Utility script that kills processes by port",
+  "main": "src/index.js",
+  "author": "Paul Cosma",
+  "license": "ISC",
+  "dependencies": {
+    "nopt": "^4.0.1"
+  }
+}
