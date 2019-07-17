@@ -1,3 +1,5 @@
+const throwError = require('../utils/throw-err');
+
 module.exports = async args => {
-    console.log('unjx-like')
+    throwError('Not yet implemented');
 }
