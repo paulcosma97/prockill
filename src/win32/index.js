@@ -1,8 +1,6 @@
 const cp = require('child_process');
-const throwError = require('../utils/throw-err');
 
 module.exports = async args => {
-    console.log(args);
     args.ports.forEach(killByPort);
 }
 
@@ -11,7 +9,7 @@ const execute = command => new Promise((resolve, reject) => cp.exec(command, (er
         return reject(err);
     }
     resolve(stdout);
-}))
+}));
 
 const getPID = port => execute(`netstat -ano | findStr "${port}"`).then(out => +out.split('LISTENING')[1].trim());
 
