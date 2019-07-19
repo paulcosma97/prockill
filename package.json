@@ -1,7 +1,8 @@
 {
   "name": "prockill",
-  "version": "0.0.8",
-  "description": "Utility script that kills processes",
+  "version": "0.1.1",
+  "description": "Cross-platform utility script that kills processes",
+  "keywords": ["process", "kill", "process kill", "prockill", "port", "pid", "process name", "cross platform", "cross", "platform"],
   "repository": {
     "type": "git",
     "url": "https://github.com/paulcosma97/prockill.git"

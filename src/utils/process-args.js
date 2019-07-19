@@ -6,7 +6,8 @@ const knownOptions = {
     'pid': [Number, Array],
     'n': [String, Array],
     's': [null],
-    'h': [null]
+    'h': [null],
+    'k': [null]
 };
 
 const shortHands = {
@@ -15,6 +16,7 @@ const shortHands = {
     'name': ['-n'],
     'silent': ['-s'],
     'help': ['-h'],
+    'skip-version-check': ['-k']
 };
 
 const args = nopt(knownOptions, shortHands, process.argv).argv.cooked;
@@ -25,6 +27,7 @@ const initialOptions = {
     names: [],
     silent: false,
     help: args.length === 0,
+    skipVersionCheck: false
 }
 
 const mapOption = opt => {
@@ -46,6 +49,9 @@ const mapOption = opt => {
             break;
         case 'h':
             explicitOption = 'help'
+            break;
+        case 'k':
+            explicitOption = 'skipVersionCheck'
             break;
     }
 

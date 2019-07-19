@@ -1,24 +1,25 @@
 #!/usr/bin/env node
-const info = require('../package.json');
 const args = require('./utils/process-args');
+const utils = require('./utils/misc');
+const OSControllerImpl = process.platform === 'win32' ? require('./win32') : require('./unix-like');
+const controller = new OSControllerImpl();
 
-if (args.help) {
-    console.log(`ProcKill Manual v${info.version}\n${info.description}\n`);
-    console.log('Usage: [npx] prockill [-options] [args...]\n');
-    console.log('\t -p | --port <list-of-ports>\n\t\tkills processes by port');
-    console.log('\t -n | --name <list-of-names>\n\t\tkills processes by name');
-    console.log('\t -pid | --process-id <list-of-names>\n\t\tkills processes by PID');
-    console.log('\t -s | --silent\n\t\tshows no output');
-    console.log('\t -h | --help\n\t\tshows this menu');
-}
+(async () => {
+    await utils.handleArgs(args);
 
-if (args.silent) {
-    console.log = () => null;
-    console.error = () => null;
-}
+    args.ports.forEach(port => controller.killByPort(port)
+        .then(() => console.log(`Process listening on port ${port} has been terminated.`))
+        .catch(() => console.error(`Could not find a process listening on port ${port}. Maybe port is already open?`))
+    );
 
-if (process.platform === 'win32') {
-    require('./win32')(args);
-} else {
-    require('./unix-like')(args);
-}
+    args.processIds.forEach(pid => controller.killByPID(pid)
+        .then(() => console.log(`Process ${pid} has been terminated.`))
+        .catch(() => console.error(`Could not terminate process with ${pid}. Maybe process is already closed?`))
+    );
+
+    args.names.forEach(name => controller.killByName(name).catch()
+        .then(() => console.log(`Process ${name} has been terminated.`))
+        .catch(() => console.error(`Could not terminate process ${name}. Maybe process is already closed?`))
+    );
+})();
+
