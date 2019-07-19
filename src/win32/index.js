@@ -11,7 +11,7 @@ const execute = command => new Promise((resolve, reject) => cp.exec(command, (er
     resolve(stdout);
 }));
 
-const getPID = port => execute(`netstat -ano | findStr "${port}"`).then(out => +out.split('LISTENING')[1].trim());
+const getPID = port => execute(`netstat -ano | findStr "${port}"`).then(out => +out.split('LISTENING')[1].split('\n')[0].trim());
 
 const killPID = pid => execute(`taskkill /F /PID ${pid}`);
 
