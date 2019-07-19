@@ -1,6 +1,6 @@
 {
   "name": "prockill",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Utility script that kills processes by port",
   "repository": {
     "type": "git",
