@@ -3,7 +3,7 @@ A cross-platform utility script that kills processes.
 
 ## Usage
 ```sh
-$ [npx] prockill [-options] [...args]`
+$ [npx] prockill [-options] [...args]
 ```
 ## Manual
  - `-p <list-of-ports>` kills processes by port
