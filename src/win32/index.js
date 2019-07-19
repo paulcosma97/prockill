@@ -3,17 +3,17 @@ const cp = require('child_process');
 module.exports = async args => {
     args.ports.forEach(port => killByPort(port)
         .then(() => console.log(`Process listening on port ${port} has been terminated.`))
-        .catch(() => console.error(`Could not find a process listening on port ${port}!`))
+        .catch(() => console.error(`Could not find a process listening on port ${port}. Maybe port is already open?`))
     );
 
     args.processIds.forEach(pid => killPID(pid)
         .then(() => console.log(`Process ${pid} has been terminated.`))
-        .catch(() => console.error(`Could not find a running process with PID ${pid}!`))
+        .catch(() => console.error(`Could not terminate process with ${pid}. Maybe process is already closed?`))
     );
 
     args.names.forEach(name => killPIDByName(name).catch()
         .then(() => console.log(`Process ${name} has been terminated.`))
-        .catch(() => console.error(`Could not find process ${name}!`))
+        .catch(() => console.error(`Could not terminate process ${name}. Maybe process is already closed?`))
     );
 }
 
@@ -26,7 +26,15 @@ const execute = command => new Promise((resolve, reject) => cp.exec(command, (er
 
 const getPIDByPort = port => execute(`netstat -ano | findStr "${port}"`).then(out => +out.split('LISTENING')[1].split('\n')[0].trim());
 
-const killPID = pid => execute(`taskkill /F /PID ${pid}`);
+const killedPIDs = [];
+const killPID = async pid => {
+    if (killedPIDs.includes(pid)) {
+        return;
+    }
+
+    await execute(`taskkill /F /PID ${pid}`);
+    killedPIDs.push(pid);
+};
 
 const killPIDByName = async name => {
 

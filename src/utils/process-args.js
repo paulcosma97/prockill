@@ -1,6 +1,5 @@
 const process = require('process');
 const nopt = require('nopt');
-const throwError = require('./throw-err');
 
 const knownOptions = {
     'p': [Number, Array],
@@ -24,8 +23,8 @@ const initialOptions = {
     ports: [],
     processIds: [],
     names: [],
-    s: false,
-    h: false
+    silent: false,
+    help: args.length === 0,
 }
 
 const mapOption = opt => {

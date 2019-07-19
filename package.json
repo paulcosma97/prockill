@@ -1,7 +1,7 @@
 {
   "name": "prockill",
-  "version": "0.0.7",
-  "description": "Utility script that kills processes by port",
+  "version": "0.0.8",
+  "description": "Utility script that kills processes",
   "repository": {
     "type": "git",
     "url": "https://github.com/paulcosma97/prockill.git"
