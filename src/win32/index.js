@@ -1,16 +1,17 @@
-const execute = require('../utils/misc').execute;
-
 const OSController = require('../utils/os.controller');
 
 class Win32Controller extends OSController {
-    killedPIDs = [];
+    constructor() {
+        super();
+        this.killedPIDs = [];
+    }
 
     async killByPID(pid) {
         if (this.killedPIDs.includes(pid)) {
             return;
         }
     
-        await execute(`taskkill /F /PID ${pid}`);
+        await this.execute(`taskkill /F /PID ${pid}`);
         this.killedPIDs.push(pid);
     }
 
@@ -45,7 +46,3 @@ class Win32Controller extends OSController {
 }
 
 module.exports = Win32Controller;
-
-async args => {
-    
-}
