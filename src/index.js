@@ -18,7 +18,7 @@ const controller = new OSControllerImpl();
     );
 
     args.names.forEach(name => controller.killByName(name).catch()
-        .then(pids => console.log(`Process ${name} (PIDs: ${JSON.stringify(pids)}) has been terminated.`))
+        .then(pids => console.log(`Process ${name} (PIDs: ${pids.map(it => it.trim()).join(', ')}) has been terminated.`))
         .catch(() => console.error(`Could not terminate process '${name}'. Maybe process is already free?`))
     );
 })();
