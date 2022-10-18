@@ -9,17 +9,17 @@ const controller = new OSControllerImpl();
 
     args.ports.forEach(port => controller.killByPort(port)
         .then(() => console.log(`Process listening on port ${port} has been terminated.`))
-        .catch(() => console.error(`Could not find a process listening on port ${port}. Maybe port is already open?`))
+        .catch(() => console.error(`Could not find a process listening on port ${port}. Maybe port is already free?`))
     );
 
     args.processIds.forEach(pid => controller.killByPID(pid)
         .then(() => console.log(`Process ${pid} has been terminated.`))
-        .catch(() => console.error(`Could not terminate process with ${pid}. Maybe process is already closed?`))
+        .catch(() => console.error(`Could not terminate process with ${pid}. Maybe process is already free?`))
     );
 
     args.names.forEach(name => controller.killByName(name).catch()
         .then(() => console.log(`Process ${name} has been terminated.`))
-        .catch(() => console.error(`Could not terminate process ${name}. Maybe process is already closed?`))
+        .catch(() => console.error(`Could not terminate process '${name}'. Maybe process is already free?`))
     );
 })();
 
