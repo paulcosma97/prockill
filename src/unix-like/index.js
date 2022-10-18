@@ -14,6 +14,10 @@ class UnixLikeController extends OSController {
         const lines = await this.execute(`ps aux | grep -i ${name} | awk '{ print $2 }'`);
         const pids = lines.trim().split('\n').map(it => it.trim());
 
+        if (!pids || pids.length === 0) {
+            throw new Error();
+        }
+
         let ranOnce = false;
         try {
             for(const pid of pids) {
