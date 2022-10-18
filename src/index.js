@@ -8,7 +8,7 @@ const controller = new OSControllerImpl();
     await utils.handleArgs(args);
 
     args.ports.forEach(port => controller.killByPort(port)
-        .then(pids => console.log(`Process listening on port ${port} (PID: ${pids[0]}) has been terminated.`))
+        .then(pids => console.log(`Process listening on port ${port} (PID: ${pids[0].trim()}) has been terminated.`))
         .catch(() => console.error(`Could not find any process listening on port ${port}. Maybe port is already free?`))
     );
 
