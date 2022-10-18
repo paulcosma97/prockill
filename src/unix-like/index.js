@@ -12,7 +12,7 @@ class UnixLikeController extends OSController {
 
     async killByName(name) {
         const lines = await this.execute(`ps aux | grep -i ${name} | awk '{ print $2 }'`);
-        const pids = lines.trim().split('\n');
+        const pids = lines.trim().split('\n').map(it => it.trim());
 
         for(const pid of pids) {
             await this.killByPID(pid)

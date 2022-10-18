@@ -31,7 +31,7 @@ class Win32Controller extends OSController {
                 return;
             }
     
-            const [_, processName, __, pid] = lines[0].split('"');
+            const [_, processName, __, pid] = lines[0].split('"').map(it => it.trim());
             if (processName !== name) {
                 continue;
             }
