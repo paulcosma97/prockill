@@ -13,6 +13,8 @@ class Win32Controller extends OSController {
     
         await this.execute(`taskkill /F /PID ${pid}`);
         this.killedPIDs.push(pid);
+
+        return this.killedPIDs;
     }
 
     async killByName(name) {
@@ -37,11 +39,15 @@ class Win32Controller extends OSController {
             await this.killByPID(pid);
             ranOnce = true;
         }
+
+        return this.killedPIDs;
     }
 
     async killByPort(port) {
         const pid = await this.execute(`netstat -ano | findStr "${port}"`).then(out => +out.split('LISTENING')[1].split('\n')[0].trim());
         await this.killByPID(pid);
+
+        return this.killedPIDs;
     }
 }
 
